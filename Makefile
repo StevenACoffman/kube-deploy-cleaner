@@ -1,6 +1,6 @@
 .PHONY: test docker push
 
-IMAGE            ?= artifactory.acorn.cirrostratus.org/cypress/kube-deploy-cleaner
+IMAGE            ?= stevenacoffman/kube-deploy-cleaner
 VERSION          ?= $(shell git describe --tags --always --dirty)
 TAG              ?= $(VERSION)
 GITHEAD          = $(shell git rev-parse --short HEAD)

@@ -18,7 +18,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: cleaner
-            image: "artifactory.acorn.cirrostratus.org/cypress/kube-deploy-cleaner:5ea281c"
+            image: "stevenacoffman/kube-deploy-cleaner:ea25c52"
             resources:
               limits:
                 cpu: 200m

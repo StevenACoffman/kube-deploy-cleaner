@@ -1,24 +1,24 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: kube-job-cleaner
+  name: kube-deploy-cleaner
   labels:
-    application: kube-job-cleaner
+    application: kube-deploy-cleaner
     version: "0.1"
 spec:
-  schedule: "17 * * * *"
+  schedule: "*/5 * * * *"
   jobTemplate:
     spec:
       template:
         metadata:
           labels:
-            application: kube-job-cleaner
+            application: kube-deploy-cleaner
             version: "0.1"
         spec:
           restartPolicy: OnFailure
           containers:
           - name: cleaner
-            image: "hjacobs/kube-job-cleaner"
+            image: "artifactory.acorn.cirrostratus.org/cypress/kube-deploy-cleaner:5ea281c"
             resources:
               limits:
                 cpu: 200m

@@ -1,13 +1,11 @@
-FROM alpine:3.5
-MAINTAINER Henning Jacobs <henning@jacobs1.de>
-
-RUN apk add --no-cache python3 && \
-    pip3 install pykube && \
-    rm -rf /var/cache/apk/* /root/.cache /tmp/* 
+FROM python:3.6.6-alpine3.8
 
 WORKDIR /
 
 COPY cleaner.py /
 COPY scm-source.json /
+COPY requirements.txt /
+
+RUN pip install -r requirements.txt
 
 ENTRYPOINT ["/cleaner.py"]

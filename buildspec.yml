@@ -15,7 +15,7 @@ phases:
       - echo Build started on `date`
       - env
       - echo "Creating scm-source.json"
-      - echo "{\"url\": \"git:$GITURL\", \"revision\": \"$GITHEAD\", \"author\": \"$USER\", \"status\": \"$GITSTATUS\"}" > scm-source.json
+      - ./scm-stamp.sh
       - echo Building the Docker image...
       - docker build -t artifactory.acorn.cirrostratus.org/cypress/kube-deploy-cleaner .
   post_build:

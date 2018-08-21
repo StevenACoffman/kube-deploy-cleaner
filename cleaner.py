@@ -18,12 +18,19 @@ def log():
 def config_logger():
     logger = log()
     if not logger.handlers:
-        logger.addHandler(logging.StreamHandler(sys.stdout))
+        handler = logging.StreamHandler(sys.stdout)
+        formatter = logging.Formatter(
+            '%(asctime)s - %(filename)s - %(funcName)s - %(message)s')
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
     logger.setLevel(logging.INFO)
 
 
 def parse_time(s: str):
-    return datetime.datetime.strptime(s, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=datetime.timezone.utc)
+    try:
+        return datetime.datetime.strptime(s, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=datetime.timezone.utc)
+    except ValueError:
+        return datetime.datetime.strptime(s, '%Y-%m-%dT%H:%M:%S').replace(tzinfo=datetime.timezone.utc)
 
 
 def td_format(td_object):
@@ -74,7 +81,7 @@ def delete_if_expired(dry_run, deployment, reason, api_instance):
                 body=client.V1DeleteOptions(
                     propagation_policy='Foreground',
                     grace_period_seconds=5))
-            log().info("Deployment deleted. status='{}'".format(str(api_response.message)))
+            log().info("Deployment deleted.")
 
 
 def main():

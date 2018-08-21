@@ -10,7 +10,6 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t artifactory.acorn.cirrostratus.org/cypress/kube-deploy-cleaner .
-      - docker tag artifactory.acorn.cirrostratus.org/cypress/kube-deploy-cleaner
   post_build:
     commands:
       - echo Build completed on `date`

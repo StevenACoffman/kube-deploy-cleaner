@@ -3,8 +3,13 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Creating blank scm-source.json
-      - touch scm-source.json
+      - export GITSHA1="${CODEBUILD_RESOLVED_SOURCE_VERSION}"
+      - export GITHEAD="$(echo $GITSHA1 | cut -c1-7)"
+      - export GITURL='git@github.com:StevenACoffman/kube-deploy-cleaner.git'
+      - export USER=codebuild
+      - export GITSTATUS="no changes"
+      - echo Creating scm-source.json
+      - echo '{"url": "git:$(GITURL)", "revision": "$(GITHEAD)", "author": "$(USER)", "status": "$(GITSTATUS)"}' > scm-source.json
   build:
     commands:
       - echo Build started on `date`

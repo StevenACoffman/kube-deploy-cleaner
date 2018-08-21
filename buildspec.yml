@@ -8,12 +8,14 @@ phases:
       - export GITURL='git@github.com:StevenACoffman/kube-deploy-cleaner.git'
       - export USER=codebuild
       - export GITSTATUS="no changes"
-      - echo Creating scm-source.json
-      - echo "{\"url\": \"git:$GITURL\", \"revision\": \"$GITHEAD\", \"author\": \"$USER\", \"status\": \"$GITSTATUS\"}" > scm-source.json
+      - echo "Creating scm-source.json"
+      - touch scm-source.json
   build:
     commands:
       - echo Build started on `date`
       - env
+      - echo "Creating scm-source.json"
+      - echo "{\"url\": \"git:$GITURL\", \"revision\": \"$GITHEAD\", \"author\": \"$USER\", \"status\": \"$GITSTATUS\"}" > scm-source.json
       - echo Building the Docker image...
       - docker build -t artifactory.acorn.cirrostratus.org/cypress/kube-deploy-cleaner .
   post_build:
